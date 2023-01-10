@@ -241,14 +241,14 @@
       function refresh_button_clicked()
       {
         document.getElementById("refresh_button").disabled = true;
-
+        queryString = `post?na=${NA2}&nb=${NB2}&chi=${chi2}&T=${T2}`
         $.ajax({
-          url: "../cgi-bin/calculate_tangent_and_binodal.py",
+          url: "https://htb67qy4z6vp6ak46i6h5b6vki0idgso.lambda-url.us-west-2.on.aws/" + queryString, //../cgi-bin/calculate_tangent_and_binodal.py",
           type: "POST",
-          data: `{"na":${NA2}, "nb":${NB2}, "chi":${chi2}, "T":${T2}}`,
+          data: {"na": NA2, "nb":NB2, "chi":chi2, "T":T2},
           dataType: "json",
           success: function(response, status, jqxhr) {
-            //console.log(response)
+            console.log(response)
             draw_flory_huggins(NA2, NB2, chi2, "tangent_and_binodal", response[0], response[1], T2 * 1.38 * 10 ** -23);
             document.getElementById("refresh_button").disabled = false;
           },
